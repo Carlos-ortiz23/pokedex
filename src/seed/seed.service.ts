@@ -20,17 +20,17 @@ export class SeedService {
   async executeSeed() {
 
     await this.pokemonModel.deleteMany();
-    
+
     const { data } = await this.axios.get<PokeResponse>('https://pokeapi.co/api/v2/pokemon?limit=650');
 
     const pokemons = data.results.map( ( { name, url } ) => ({
-
+ 
       name: name,
       no: +url.split('/')[6]
-     
+
     } ) );
 
-    await this.pokemonModel.insertMany(pokemons)
+    await this.pokemonModel.insertMany(pokemons);
 
     return 'Seed Executed Successfuly!!';
   }
